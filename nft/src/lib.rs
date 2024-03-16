@@ -12,27 +12,24 @@ use stylus_sdk::{
     alloy_primitives::{Address, U256},
     msg,
     prelude::*,
+    storage::StorageAddress,
 };
 
 mod erc721;
-pub mod svg;
 
 use erc721::*;
 
 struct GoghNFTParams;
 
-/// Immutable definitions
 impl Erc721Params for GoghNFTParams {
     const NAME: &'static str = "GoghNFT";
     const SYMBOL: &'static str = "GOGH";
 }
 
-// Define some persistent storage using the Solidity ABI.
-// `Counter` will be the entrypoint.
 sol_storage! {
     #[entrypoint]
     pub struct GoghNFT {
-        uint256 number;
+        StorageAddress art_contract_address;
 
         #[borrow] // Allows erc721 to access MyToken's storage and make calls
         Erc721<GoghNFTParams> erc721;
@@ -82,12 +79,6 @@ type Result<T, E = GoghNFTError> = core::result::Result<T, E>;
 #[external]
 #[inherit(Erc721<GoghNFTParams>)]
 impl GoghNFT {
-    pub fn svg(&self) -> String {
-        let svg = svg::gen();
-        let svg = String::from_utf8(svg).unwrap();
-        svg
-    }
-
     /// Mints an NFT, but does not call onErc712Received
     pub fn mint(&mut self) -> Result<()> {
         let minter = msg::sender();

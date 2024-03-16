@@ -7,7 +7,7 @@
 
 fn main() {
     println!("Generating...");
-    let svg = gogh_nft::svg::gen();
+    let svg = gogh_art::svg::gen();
     let svg = String::from_utf8(svg).unwrap();
     std::fs::write("gogh.svg", svg).unwrap();
     println!("Done!");
