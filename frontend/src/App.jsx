@@ -2,12 +2,8 @@ import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query' 
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { arbitrum } from 'wagmi/chains'
 
-import { Header } from './components/Header'
-import { SetParameters } from './components/SetParameters'
-import { GenerateButton } from './components/GenerateButton'
-import { GeneratedImage } from './components/GeneratedImage'
+import { MainPage } from './MainPage'
 
 // 0. Setup queryClient
 const queryClient = new QueryClient()
@@ -54,18 +50,7 @@ function App() {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <main className='h-screen pb-36'>
-          <Header />
-          <div className='pt-40 h-full mx-auto max-w-[1000px]'>
-          <h1 className=' text-2xl font-medium'>✨ <span className='underline'>Algorithmic Art Generator</span></h1>
-          <div className='flex flex-row gap-20 h-full pt-10'>
-            <div className='h-full grow flex flex-col gap-8'>
-              <SetParameters />
-            </div>
-            <GeneratedImage />
-          </div>
-          </div>
-        </main>
+        <MainPage />
       </QueryClientProvider> 
     </WagmiProvider>
   );
