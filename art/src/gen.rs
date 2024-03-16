@@ -7,7 +7,7 @@ pub const RECTANGLES: u32 = 0b001;
 pub const TRIANGLES: u32 = 0b010;
 pub const CIRCLES: u32 = 0b100;
 
-pub fn gen(shapes_mask: U256, shape_size: U256, num_shapes: U256, colors: Vec<u8>) -> String {
+pub fn gen(shapes_mask: U256, num_shapes: U256) -> String {
     let shapes = shapes_from_u256(shapes_mask);
 
     let mut count: U256 = U256::from(0);
