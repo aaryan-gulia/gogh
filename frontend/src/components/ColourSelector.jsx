@@ -21,7 +21,7 @@ export const ColourSelector = ({ colours, colourCallback }) => {
       let updatedList = [];
       for (let i = 0; i < colours.length; i++)
       {
-        if (idx != i) updatedList.push(prev[i]);
+        if (idx != i) updatedList.push(colours[i]);
       }
       return updatedList;
     });
