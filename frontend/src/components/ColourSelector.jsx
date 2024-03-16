@@ -1,25 +1,23 @@
-import { useState } from "react";
 import { AddButton } from "./AddButton";
 import { colourButton } from "./ColourButton";
 
-export const ColourSelector = () => {
-  const [colours, setColours] = useState([]);
-
+export const ColourSelector = ({ colours, colourCallback }) => {
   const handleColourEdit = (key, value) => {
-    setColours((prev) => {
-      prev[key] = value;
-      return [...prev];
+    colourCallback(() => {
+      let updatedColours = colours;
+      updatedColours[key] = value;
+      return [...updatedColours];
      });
   }
 
   const handleAddColour = () => {
-    setColours((prev) => {
-      return [...prev, "000000"];
+    colourCallback(() => {
+      return [...colours, "000000"];
     });
   }
 
   const handleDeleteColour = (idx) => {
-    setColours((prev) => {
+    colourCallback(() => {
       let updatedList = [];
       for (let i = 0; i < colours.length; i++)
       {

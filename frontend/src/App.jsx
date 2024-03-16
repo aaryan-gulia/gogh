@@ -47,7 +47,6 @@ function App() {
           <div className='flex flex-row gap-20 pt-32 h-full mx-auto max-w-[1000px]'>
             <div className='h-full grow flex flex-col gap-8'>
               <SetParameters />
-              <GenerateButton />
             </div>
             <GeneratedImage />
           </div>

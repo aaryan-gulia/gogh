@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AddButton } from "./AddButton";
 
 const shapes = [
@@ -16,18 +16,13 @@ const shapes = [
   },
 ];
 
-export const ShapeSelector = () => {
-  const [selectedShapes, setSelectedShapes] = useState({ "square": true });
-
-  const toggle = (name) => {
-    setSelectedShapes(prev => ({
-      ...prev,
-      [name]: !prev[name]
-    }));
-  };
-
+export const ShapeSelector = ({selectedShapes, shapeCallback}) => {
   const selected = "p-1 bg-[#c4cad2] w-fit my-auto rounded-lg";
   const unSelected = "p-1 w-fit my-auto";
+
+  const toggle = (name) => {
+    shapeCallback(name);
+  }
 
   return (
     <div>
@@ -39,7 +34,7 @@ export const ShapeSelector = () => {
         return (
           <div 
             key={shape.name}
-            className={selectedShapes[shape.name] ? selected: unSelected}
+            className={selectedShapes.includes(shape.name) ? selected: unSelected}
             onClick={() => { toggle(shape.name); }}
           >
             {shape.value}
