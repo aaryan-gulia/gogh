@@ -14,20 +14,20 @@ const algorithms = [
   }
 ];
 
-const selected = "bg-gray-300 px-5 py-1 text-sm rounded-full text-black hover:bg-gray-200";
-const unSelected = "bg-gray-500 px-5 py-1 text-sm rounded-full text-white";
+const selected = "bg-gray-500 px-5 py-1 text-sm rounded-full text-white border border-black";
+const unSelected = "bg-gray-300 hover:bg-gray-200  px-5 py-1 text-sm rounded-full text-black";
 
 export const SetParameters = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState(1);
   const [shapes, setShapes] = useState(["square"]);
-  const [colours, setColours] = useState([]);
+  const [colours, setColours] = useState(["FFFFFF"]);
 
   const algorithmButtons = algorithms.map((algorithm) => {
     return (
       <button
         key={algorithm.id}
         onClick={() => setSelectedAlgorithm(algorithm.id)}
-        className={(algorithm.id == selectedAlgorithm) ? unSelected : selected}
+        className={(algorithm.id == selectedAlgorithm) ? selected : unSelected}
       >
         {algorithm.name}
       </button>
@@ -64,7 +64,7 @@ export const SetParameters = () => {
       <div className="flex flex-row gap-5">
         {algorithmButtons}
       </div>
-      <div className="bg-gray-100 w-full p-8 rounded-2xl flex flex-col gap-10 h-full">
+      <div className="bg-gray-100 w-full p-8 rounded-2xl flex flex-col gap-10 h-full border border-gray-300">
         <ShapeSelector selectedShapes={shapes} shapeCallback={handleShapeChange} />
         <ColourSelector colours={colours} colourCallback={handleColoursChange} />
       </div>
