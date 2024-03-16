@@ -7,6 +7,7 @@ import { arbitrum } from 'wagmi/chains'
 import { Header } from './components/Header'
 import { SetParameters } from './components/SetParameters'
 import { GenerateButton } from './components/GenerateButton'
+import { GeneratedImage } from './components/GeneratedImage'
 
 // 0. Setup queryClient
 const queryClient = new QueryClient()
@@ -43,9 +44,12 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <main className='h-screen pb-36'>
           <Header />
-          <div className='pt-32 mx-10 h-full'>
-            <SetParameters />
-            <GenerateButton />
+          <div className='flex flex-row gap-20 pt-32 h-full mx-auto max-w-[1000px]'>
+            <div className='h-full grow flex flex-col gap-8'>
+              <SetParameters />
+              <GenerateButton />
+            </div>
+            <GeneratedImage />
           </div>
         </main>
       </QueryClientProvider> 

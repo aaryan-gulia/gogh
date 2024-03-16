@@ -37,7 +37,7 @@ export const SetParameters = () => {
       <div className="flex flex-row gap-5">
         {algorithmButtons}
       </div>
-      <div className="bg-gray-100 p-8 w-1/2 rounded-2xl flex flex-col gap-10 h-full">
+      <div className="bg-gray-100 w-full p-8 rounded-2xl flex flex-col gap-10 h-full">
         <ShapeSelector />
         <ColourSelector />
       </div>
