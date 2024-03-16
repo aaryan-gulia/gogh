@@ -47,7 +47,7 @@ export const ShapeSelector = () => {
         );
       })}
       <div className="grow"></div>
-      <AddButton />
+      <AddButton radius={8} />
     </div>
   </div>
   );
