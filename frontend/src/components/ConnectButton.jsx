@@ -6,8 +6,6 @@ export default function ConnectButton() {
   const { open } = useWeb3Modal()
   const { address, isConnecting, isDisconnected } = useAccount()
 
-  console.log(address, isConnecting, isDisconnected);
-
   let btnText = "";
 
   if (isConnecting) btnText = "Connecting...";
