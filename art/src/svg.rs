@@ -1,41 +1,46 @@
+// 1. Shape types
+// 2. Number of shapes
+// 3. Average size
+// 4. Colors
+
 use svg::node::element::{Circle, Polygon, Rectangle};
 use svg::Document;
 
-enum Shape {
+pub enum Shape {
     Circle,
-    Rectangle { rotation: u32 },
-    Triangle { rotation: u32 },
+    Rectangle,
+    Triangle,
 }
 
-struct Layer {
-    shape: Shape,
-    x_position: u32,
-    y_position: u32,
-    size: u32,
-    fill_color: Option<(u8, u8, u8)>,
-    stroke_width: u32,
-    border_color: (u8, u8, u8),
+pub struct Layer {
+    pub shape: Shape,
+    pub x_position: u32,
+    pub y_position: u32,
+    pub size: u32,
+    pub fill_color: (u8, u8, u8),
+    pub fill_opacity: u32,
+    pub stroke_color: (u8, u8, u8),
+    pub stroke_width: u32,
+    pub rotation: u32,
 }
 
-fn add_layer(doc: Document, layer: Layer) -> Document {
+pub(crate) fn add_layer(doc: Document, layer: Layer) -> Document {
     let Layer {
         shape,
         x_position,
         y_position,
         size,
-        border_color,
         fill_color,
+        fill_opacity,
+        stroke_color,
         stroke_width,
+        rotation,
     } = layer;
 
-    let fill_color = if let Some(fill_color) = fill_color {
-        format!(
-            "#{:02x}{:02x}{:02x}",
-            fill_color.0, fill_color.1, fill_color.2
-        )
-    } else {
-        "none".to_string()
-    };
+    let fill_color = format!(
+        "#{:02x}{:02x}{:02x}",
+        fill_color.0, fill_color.1, fill_color.2
+    );
 
     match shape {
         Shape::Circle => {
@@ -44,29 +49,31 @@ fn add_layer(doc: Document, layer: Layer) -> Document {
                 .set("cy", y_position)
                 .set("r", size)
                 .set("fill", fill_color)
+                .set("fill-opacity", format!("{fill_opacity}%"))
                 .set(
                     "stroke",
                     format!(
                         "#{:02x}{:02x}{:02x}",
-                        border_color.0, border_color.1, border_color.2
+                        stroke_color.0, stroke_color.1, stroke_color.2
                     ),
                 )
                 .set("stroke-width", stroke_width);
 
             doc.add(circle)
         }
-        Shape::Rectangle { rotation } => {
+        Shape::Rectangle => {
             let rect = Rectangle::new()
                 .set("x", x_position)
                 .set("y", y_position)
                 .set("width", size)
                 .set("height", size)
                 .set("fill", fill_color)
+                .set("fill-opacity", format!("{fill_opacity}%"))
                 .set(
                     "stroke",
                     format!(
                         "#{:02x}{:02x}{:02x}",
-                        border_color.0, border_color.1, border_color.2
+                        stroke_color.0, stroke_color.1, stroke_color.2
                     ),
                 )
                 .set("stroke-width", stroke_width)
@@ -77,9 +84,23 @@ fn add_layer(doc: Document, layer: Layer) -> Document {
 
             doc.add(rect)
         }
-        Shape::Triangle { rotation } => {
-            let vertex1 = (x_position, y_position - size / 2);
-            let vertex2 = (x_position - size / 2, y_position + size / 2);
+        Shape::Triangle => {
+            let vertex1 = (
+                x_position,
+                if y_position > size / 2 {
+                    y_position - size / 2
+                } else {
+                    0
+                },
+            );
+            let vertex2 = (
+                if x_position > size / 2 {
+                    x_position - size / 2
+                } else {
+                    0
+                },
+                y_position + size / 2,
+            );
             let vertex3 = (x_position + size / 2, y_position + size / 2);
             let points = format!(
                 "{},{} {},{} {},{}",
@@ -89,11 +110,12 @@ fn add_layer(doc: Document, layer: Layer) -> Document {
             let triangle = Polygon::new()
                 .set("points", points)
                 .set("fill", fill_color)
+                .set("fill-opacity", format!("{fill_opacity}%"))
                 .set(
                     "stroke",
                     format!(
                         "#{:02x}{:02x}{:02x}",
-                        border_color.0, border_color.1, border_color.2
+                        stroke_color.0, stroke_color.1, stroke_color.2
                     ),
                 )
                 .set("stroke-width", stroke_width)
@@ -105,46 +127,4 @@ fn add_layer(doc: Document, layer: Layer) -> Document {
             doc.add(triangle)
         }
     }
-}
-
-pub fn gen() -> Vec<u8> {
-    let triangle = Layer {
-        shape: Shape::Triangle { rotation: 45 },
-        x_position: 40,
-        y_position: 40,
-        size: 40,
-        fill_color: Some((255, 0, 255)),
-        border_color: (0, 0, 0),
-        stroke_width: 3,
-    };
-
-    let rect = Layer {
-        shape: Shape::Rectangle { rotation: 30 },
-        x_position: 10,
-        y_position: 10,
-        size: 50,
-        fill_color: None,
-        border_color: (0, 0, 255),
-        stroke_width: 3,
-    };
-
-    let circle = Layer {
-        shape: Shape::Circle,
-        x_position: 26,
-        y_position: 75,
-        size: 30,
-        fill_color: None,
-        border_color: (255, 0, 0),
-        stroke_width: 10,
-    };
-
-    let document = Document::new().set("viewBox", (0, 0, 100, 100));
-    let document = add_layer(document, triangle);
-    let document = add_layer(document, rect);
-    let document = add_layer(document, circle);
-
-    let mut bytes = Vec::new();
-    svg::write(&mut bytes, &document).unwrap();
-
-    bytes
 }
