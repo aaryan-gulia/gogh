@@ -23,7 +23,19 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-const chains = [arbitrum]
+const stylusTestnet = {
+  id: 23011913,
+  name: "Stylus testnet",
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://stylus-testnet.arbitrum.io/rpc'] },
+  },
+  blockExplorers: {
+    default: { name: 'Blockscout', url: 'https://stylus-testnet-explorer.arbitrum.io/' },
+  },
+}
+
+const chains = [stylusTestnet]
 const config = defaultWagmiConfig({
   chains,
   projectId,
@@ -44,7 +56,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <main className='h-screen pb-36'>
           <Header />
-          <div className='flex flex-row gap-20 pt-32 h-full mx-auto max-w-[1000px]'>
+          <div className='flex flex-row gap-20 pt-48 h-full mx-auto max-w-[1000px]'>
             <div className='h-full grow flex flex-col gap-8'>
               <SetParameters />
             </div>
