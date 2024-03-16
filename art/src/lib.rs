@@ -4,14 +4,10 @@ extern crate alloc;
 #[global_allocator]
 static ALLOC: mini_alloc::MiniAlloc = mini_alloc::MiniAlloc::INIT;
 
-use stylus_sdk::alloy_primitives::U256;
-use stylus_sdk::block;
 use stylus_sdk::prelude::*;
 
 pub mod gen;
 pub mod svg;
-
-use svg::*;
 
 sol_storage! {
     #[entrypoint]

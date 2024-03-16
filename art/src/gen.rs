@@ -1,6 +1,4 @@
 use stylus_sdk::alloy_primitives::U256;
-use stylus_sdk::block;
-use stylus_sdk::prelude::*;
 use svg::Document;
 
 use crate::svg::*;
