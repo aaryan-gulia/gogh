@@ -51,16 +51,18 @@ async fn main() -> eyre::Result<()> {
         provider,
         wallet.clone().with_chain_id(chain_id),
     ));
+    while (true) {
+        let test_client = client.clone();
+        let counter = Counter::new(address, test_client);
+        let num = counter.number().call().await;
+        println!("Counter number value = {:?}", num);
 
-    let counter = Counter::new(address, client);
-    let num = counter.number().call().await;
-    println!("Counter number value = {:?}", num);
+        let _ = counter.increment().send().await?.await?;
+        println!("Successfully incremented counter via a tx");
 
-    let _ = counter.increment().send().await?.await?;
-    println!("Successfully incremented counter via a tx");
-
-    let num = counter.number().call().await;
-    println!("New counter number value = {:?}", num);
+        let num = counter.number().call().await;
+        println!("New counter number value = {:?}", num);
+    }
     Ok(())
 }
 
