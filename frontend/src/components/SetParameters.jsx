@@ -69,6 +69,7 @@ export const SetParameters = () => {
         <ColourSelector colours={colours} colourCallback={handleColoursChange} />
       </div>
     </div>
+    <br></br>
     <GenerateButton algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </>
   );

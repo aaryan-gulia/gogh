@@ -1,13 +1,60 @@
+import externalLink from '/icons/externalLink.svg';
+
+const contractAddress = "0x0EdE555D3f8c3197741A757F9696C7059122D1fc";
+const shortContractAddress = contractAddress.substring(0, 5) + '...' + contractAddress.substring(contractAddress.length - 5);
+
+const getContext = () => {
+  let canvas = document.querySelector('#artCanvas');
+  return canvas.getContext('2d');
+}
+
 export const GeneratedImage = () => {
+  const drawRectangle = (x, y, width, height, colour) => {  
+    let ctx = getContext();
+    ctx.fillStyle = colour;
+    ctx.fillRect(x, y, width, height);
+  }
+ 
+  const drawCircle = (x, y, radius, colour) => {
+    let ctx = getContext();
+    ctx.fillStyle = colour;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2, true);
+    ctx.fill();
+  }
+
+  const drawTriangle = (x1, y1, x2, y2, x3, y3, colour) => {
+    let ctx = getContext();
+    ctx.fillStyle = colour;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1); // first vertex
+    ctx.lineTo(x2, y2); // second vertex
+    ctx.lineTo(x3, y3); // third vertex
+    ctx.closePath(); // closes the path and goes back to the first vertex
+    ctx.fill();
+}
+
   return (
     <div className="flex flex-col gap-4">
-      <h2>Generated Image:</h2>
+      <h2 className='font-medium'>Generated Image:</h2>
       <div className="w-72 h-72 border border-black rounded-xl">
+        <canvas id="artCanvas" width="287" height="287"></canvas>
+      </div>
+        <div className='flex flex-row gap-2'>
+        <span>Contract: </span>
+        <a
+        target="_blank" rel="noopener noreferrer"
+        className='hover:text-gray-600 border-b-[1px] border-b-black flex flex-row gap-1'
+        href='https://stylus-testnet-explorer.arbitrum.io/address/0x0EdE555D3f8c3197741A757F9696C7059122D1fc'
+        >
+        <img className="inline" src={externalLink} width={12}></img>
+        <span>{shortContractAddress}</span>
+        </a>
       </div>
       <button 
-      className='bg-gradient-to-br w-24 from-teal-400 to-emerald-500 hover:from-teal-400 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
+      className='mt-8 bg-gradient-to-br w-24 from-teal-400 to-emerald-500 hover:from-teal-400 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
       >
-        Mint
+      Mint
       </button>
     </div>
   );
