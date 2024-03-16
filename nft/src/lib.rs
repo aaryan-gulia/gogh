@@ -1,5 +1,5 @@
 //!
-//! Stylus Hello World
+//! Gogh Hello World
 //!
 //! The following contract implements the Counter example from Foundry.
 //!
@@ -19,7 +19,6 @@
 //! To do this, run `cargo stylus export-abi`.
 //!
 //! Note: this code is a template-only and has not been audited.
-//!
 
 // Allow `cargo stylus export-abi` to generate a main function.
 #![cfg_attr(not(feature = "export-abi"), no_main)]
@@ -32,12 +31,28 @@ static ALLOC: mini_alloc::MiniAlloc = mini_alloc::MiniAlloc::INIT;
 /// Import items from the SDK. The prelude contains common traits and macros.
 use stylus_sdk::{alloy_primitives::U256, prelude::*};
 
+mod erc721;
+pub mod svg;
+
+use erc721::*;
+
+struct GoghNFTParams;
+
+/// Immutable definitions
+impl Erc721Params for GoghNFTParams {
+    const NAME: &'static str = "GoghNFT";
+    const SYMBOL: &'static str = "GOGH";
+}
+
 // Define some persistent storage using the Solidity ABI.
 // `Counter` will be the entrypoint.
 sol_storage! {
     #[entrypoint]
     pub struct Counter {
         uint256 number;
+
+        #[borrow] // Allows erc721 to access MyToken's storage and make calls
+        Erc721<GoghNFTParams> erc721;
     }
 }
 
