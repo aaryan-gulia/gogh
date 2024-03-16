@@ -5,7 +5,7 @@ export const colourButton = (key, colour, editCallback, deleteCallback) => {
     <div key={key} className="bg-white rounded-full px-2 py-1 flex flex-row gap-2">
       <div 
       style={{background: `#${colour}`}}
-      className={`bg-[${colour}] my-auto border border-gray-200 w-5 h-5 rounded-full hover:opacity-30`}
+      className={`shrink-0 bg-[${colour}] my-auto border border-gray-200 min-w-5 h-5 rounded-full hover:opacity-30`}
       onClick={()=>{deleteCallback(key);}}
       ></div>
       <span>
