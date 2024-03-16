@@ -6,6 +6,7 @@ import { arbitrum } from 'wagmi/chains'
 
 import { Header } from './components/Header'
 import { SetParameters } from './components/SetParameters'
+import { GenerateButton } from './components/GenerateButton'
 
 // 0. Setup queryClient
 const queryClient = new QueryClient()
@@ -44,6 +45,7 @@ function App() {
           <Header />
           <div className='pt-32 mx-10 h-full'>
             <SetParameters />
+            <GenerateButton />
           </div>
         </main>
       </QueryClientProvider> 

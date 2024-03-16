@@ -15,7 +15,7 @@ export default function ConnectButton() {
 
   return (
     <>
-      <button className='bg-sky-300 hover:bg-sky-400 rounded-full text-white px-5 h-12 ' 
+      <button className='bg-gradient-to-tr from-sky-300 to-blue-500 hover:from-sky-400 hover:to-blue-600 rounded-full text-white px-5 h-12 ' 
       onClick={() => open()}>
         {btnText}
       </button>
