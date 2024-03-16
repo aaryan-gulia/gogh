@@ -1,14 +1,17 @@
-// #![cfg_attr(not(feature = "export-abi"), no_main)]
-
-// #[cfg(feature = "export-abi")]
-// fn main() {
-//     gogh_nft::main();
-// }
+use gogh_art::gen::*;
+use stylus_sdk::alloy_primitives::U256;
 
 fn main() {
     println!("Generating...");
-    let svg = gogh_art::svg::gen();
-    let svg = String::from_utf8(svg).unwrap();
+
+    let svg = gen(
+        U256::from(RECTANGLES | TRIANGLES | CIRCLES),
+        U256::from(10),
+        U256::from(3),
+        vec![0, 0, 0],
+    );
+
     std::fs::write("gogh.svg", svg).unwrap();
+
     println!("Done!");
 }
