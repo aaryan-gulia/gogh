@@ -384,6 +384,30 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "shapes_mask",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "num_shapes",
+          "type": "uint256"
+        }
+      ],
+      "name": "getShapes",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "svg",
       "outputs": [

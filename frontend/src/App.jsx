@@ -3,7 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 
+import { Header } from './components/Header'
 import { MainPage } from './MainPage'
+import { useState } from 'react'
 
 // 0. Setup queryClient
 const queryClient = new QueryClient()
@@ -47,10 +49,13 @@ createWeb3Modal({
 })
 
 function App() {
+  const [page, setPage] = useState(<MainPage />);
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <MainPage />
+        <Header setPage={setPage} />
+        {page}
       </QueryClientProvider> 
     </WagmiProvider>
   );
