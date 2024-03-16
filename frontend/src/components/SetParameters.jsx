@@ -20,7 +20,7 @@ const unSelected = "bg-gray-300 hover:bg-gray-200  px-5 py-1 text-sm rounded-ful
 export const SetParameters = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState(1);
   const [shapes, setShapes] = useState(["square"]);
-  const [colours, setColours] = useState(["FFFFFF"]);
+  const [colours, setColours] = useState(["#FFFFFF"]);
 
   const algorithmButtons = algorithms.map((algorithm) => {
     return (
@@ -58,6 +58,12 @@ export const SetParameters = () => {
     setColours(updatedColours);
   }
 
+  const handleAddColour = () => {
+    setColours((prev) => {
+     return [...prev, "#000000"];
+    });
+  }
+
   return (
     <>
       <div className="flex flex-col gap-6 h-full">
@@ -66,7 +72,7 @@ export const SetParameters = () => {
       </div>
       <div className="bg-gray-100 w-full p-8 rounded-2xl flex flex-col gap-10 h-full border border-gray-300">
         <ShapeSelector selectedShapes={shapes} shapeCallback={handleShapeChange} />
-        <ColourSelector colours={colours} colourCallback={handleColoursChange} />
+        <ColourSelector colours={colours} colourCallback={handleColoursChange} addColour={handleAddColour} />
       </div>
     </div>
     <br></br>

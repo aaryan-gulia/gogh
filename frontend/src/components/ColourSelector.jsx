@@ -1,20 +1,13 @@
 import { AddButton } from "./AddButton";
-import { colourButton } from "./ColourButton";
-import { ColourPicker } from "./ColourPicker";
+import { ColourButton } from "./ColourButton";
 
-export const ColourSelector = ({ colours, colourCallback }) => {
+export const ColourSelector = ({ colours, colourCallback, addColour }) => {
   const handleColourEdit = (key, value) => {
     colourCallback(() => {
       let updatedColours = colours;
       updatedColours[key] = value;
       return [...updatedColours];
      });
-  }
-
-  const handleAddColour = () => {
-    colourCallback(() => {
-      return [...colours, "000000"];
-    });
   }
 
   const handleDeleteColour = (idx) => {
@@ -26,10 +19,10 @@ export const ColourSelector = ({ colours, colourCallback }) => {
       }
       return updatedList;
     });
-  };
+  }
 
   const colourList = colours.map((colour, idx) => {
-    return colourButton(idx, colour, handleColourEdit, handleDeleteColour)
+    return <ColourButton idx={idx} colour={colour} editCallback={handleColourEdit} deleteCallback={handleDeleteColour} />
   });
 
   return (
@@ -37,8 +30,7 @@ export const ColourSelector = ({ colours, colourCallback }) => {
       <h3 className="text-md text-gray-700 pl-2 pb-3">Colours</h3>
       <div className="flex flex-row flex-wrap gap-3">
         {colourList}
-        <AddButton radius={5} callback={handleAddColour}/>
-        <ColourPicker />
+        <AddButton radius={5} callback={addColour} />
       </div>
     </div>
   );
