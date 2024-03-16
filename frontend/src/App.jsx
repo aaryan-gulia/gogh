@@ -4,6 +4,7 @@ import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 import { arbitrum } from 'wagmi/chains'
 import { Header } from './components/Header'
+import { SetParameters } from './components/SetParameters'
 
 // 0. Setup queryClient
 const queryClient = new QueryClient()
@@ -37,8 +38,13 @@ createWeb3Modal({
 function App() {
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}> 
-        <Header />
+      <QueryClientProvider client={queryClient}>
+        <main className='h-screen'>
+          <Header />
+          <div className='pt-32 mx-10'>
+            <SetParameters />
+          </div>
+        </main>
       </QueryClientProvider> 
     </WagmiProvider>
   );
