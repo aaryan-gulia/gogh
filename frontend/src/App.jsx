@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 import { arbitrum } from 'wagmi/chains'
+
 import { Header } from './components/Header'
 import { SetParameters } from './components/SetParameters'
 
