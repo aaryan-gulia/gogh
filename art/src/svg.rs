@@ -17,9 +17,10 @@ pub struct Layer {
     pub x_position: u32,
     pub y_position: u32,
     pub size: u32,
-    pub fill_color: Option<(u8, u8, u8)>,
+    pub fill_color: (u8, u8, u8),
+    pub fill_opacity: u32,
+    pub stroke_color: (u8, u8, u8),
     pub stroke_width: u32,
-    pub border_color: (u8, u8, u8),
     pub rotation: u32,
 }
 
@@ -29,20 +30,17 @@ pub(crate) fn add_layer(doc: Document, layer: Layer) -> Document {
         x_position,
         y_position,
         size,
-        border_color,
         fill_color,
+        fill_opacity,
+        stroke_color,
         stroke_width,
         rotation,
     } = layer;
 
-    let fill_color = if let Some(fill_color) = fill_color {
-        format!(
-            "#{:02x}{:02x}{:02x}",
-            fill_color.0, fill_color.1, fill_color.2
-        )
-    } else {
-        "none".to_string()
-    };
+    let fill_color = format!(
+        "#{:02x}{:02x}{:02x}",
+        fill_color.0, fill_color.1, fill_color.2
+    );
 
     match shape {
         Shape::Circle => {
@@ -51,11 +49,12 @@ pub(crate) fn add_layer(doc: Document, layer: Layer) -> Document {
                 .set("cy", y_position)
                 .set("r", size)
                 .set("fill", fill_color)
+                .set("fill-opacity", format!("{fill_opacity}%"))
                 .set(
                     "stroke",
                     format!(
                         "#{:02x}{:02x}{:02x}",
-                        border_color.0, border_color.1, border_color.2
+                        stroke_color.0, stroke_color.1, stroke_color.2
                     ),
                 )
                 .set("stroke-width", stroke_width);
@@ -69,11 +68,12 @@ pub(crate) fn add_layer(doc: Document, layer: Layer) -> Document {
                 .set("width", size)
                 .set("height", size)
                 .set("fill", fill_color)
+                .set("fill-opacity", format!("{fill_opacity}%"))
                 .set(
                     "stroke",
                     format!(
                         "#{:02x}{:02x}{:02x}",
-                        border_color.0, border_color.1, border_color.2
+                        stroke_color.0, stroke_color.1, stroke_color.2
                     ),
                 )
                 .set("stroke-width", stroke_width)
@@ -85,8 +85,22 @@ pub(crate) fn add_layer(doc: Document, layer: Layer) -> Document {
             doc.add(rect)
         }
         Shape::Triangle => {
-            let vertex1 = (x_position, y_position - size / 2);
-            let vertex2 = (x_position - size / 2, y_position + size / 2);
+            let vertex1 = (
+                x_position,
+                if y_position > size / 2 {
+                    y_position - size / 2
+                } else {
+                    0
+                },
+            );
+            let vertex2 = (
+                if x_position > size / 2 {
+                    x_position - size / 2
+                } else {
+                    0
+                },
+                y_position + size / 2,
+            );
             let vertex3 = (x_position + size / 2, y_position + size / 2);
             let points = format!(
                 "{},{} {},{} {},{}",
@@ -96,11 +110,12 @@ pub(crate) fn add_layer(doc: Document, layer: Layer) -> Document {
             let triangle = Polygon::new()
                 .set("points", points)
                 .set("fill", fill_color)
+                .set("fill-opacity", format!("{fill_opacity}%"))
                 .set(
                     "stroke",
                     format!(
                         "#{:02x}{:02x}{:02x}",
-                        border_color.0, border_color.1, border_color.2
+                        stroke_color.0, stroke_color.1, stroke_color.2
                     ),
                 )
                 .set("stroke-width", stroke_width)

@@ -6,8 +6,8 @@ fn main() {
 
     let svg = gen(
         U256::from(RECTANGLES | TRIANGLES | CIRCLES),
-        U256::from(10),
-        U256::from(3),
+        U256::from(0),
+        U256::from(256),
         vec![0, 0, 0],
     );
 

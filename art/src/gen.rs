@@ -17,36 +17,58 @@ pub fn gen(shapes_mask: U256, shape_size: U256, num_shapes: U256, colors: Vec<u8
         let i = fastrand::usize(..shapes.len());
         let shape = &shapes[i];
 
+        let x_position = fastrand::u32(..100);
+        let y_position = fastrand::u32(..100);
+        let size = fastrand::u32(..100);
+        let stroke_width = fastrand::u32(1..=5);
+        let rotation = fastrand::u32(..90);
+
+        let fill_color = (
+            fastrand::u8(0..=255),
+            fastrand::u8(0..=255),
+            fastrand::u8(0..=255),
+        );
+        let fill_opacity = fastrand::u32(..=64);
+
+        let stroke_color = (
+            fastrand::u8(0..=255),
+            fastrand::u8(0..=255),
+            fastrand::u8(0..=255),
+        );
+
         let layer = match shape {
             Shape::Triangle => Layer {
                 shape: Shape::Triangle,
-                x_position: 40,
-                y_position: 40,
-                size: 40,
-                fill_color: Some((255, 0, 255)),
-                border_color: (0, 0, 0),
-                stroke_width: 3,
-                rotation: 45,
+                fill_color,
+                fill_opacity,
+                stroke_color,
+                stroke_width,
+                x_position,
+                y_position,
+                rotation,
+                size,
             },
             Shape::Rectangle => Layer {
                 shape: Shape::Rectangle,
-                x_position: 10,
-                y_position: 10,
-                size: 50,
-                fill_color: None,
-                border_color: (0, 0, 255),
-                stroke_width: 3,
-                rotation: 30,
+                fill_color,
+                fill_opacity,
+                stroke_color,
+                stroke_width,
+                x_position,
+                y_position,
+                rotation,
+                size,
             },
             Shape::Circle => Layer {
                 shape: Shape::Circle,
-                x_position: 26,
-                y_position: 75,
-                size: 30,
-                fill_color: None,
-                border_color: (255, 0, 0),
-                stroke_width: 10,
-                rotation: 0,
+                fill_color,
+                fill_opacity,
+                stroke_color,
+                stroke_width,
+                x_position,
+                y_position,
+                rotation,
+                size,
             },
         };
 
