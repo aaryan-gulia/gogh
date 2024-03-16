@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShapeSelector } from "./ShapeSelector";
 import { ColourSelector } from './ColourSelector';
 import { GenerateButton } from './GenerateButton'
@@ -42,7 +42,14 @@ export const SetParameters = () => {
     }
     else {
       setShapes((prev) => {
-        prev.splice(shapes.indexOf(name), 1);
+        const updatedList = [];
+        prev.forEach(shape => {
+          if (shape !== name) {
+            updatedList.push(shape);
+          }
+        });
+
+        return updatedList;
       });
     }
   };
