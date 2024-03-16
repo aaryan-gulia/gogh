@@ -4,7 +4,7 @@ use svg::Document;
 pub fn gen() -> Vec<u8> {
     let triangle = Polygon::new()
         .set("points", "40,40 40,80 80,60")
-        .set("fill", "none")
+        .set("fill", "lime")
         .set("stroke", "black")
         .set("stroke-width", 3);
 
@@ -20,7 +20,7 @@ pub fn gen() -> Vec<u8> {
     let circle = Circle::new()
         .set("cx", 26)
         .set("cy", 75)
-        .set("r", 30) //
+        .set("r", 30)
         .set("fill", "none")
         .set("stroke", "red")
         .set("stroke-width", 10);
