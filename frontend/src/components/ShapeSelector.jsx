@@ -33,7 +33,7 @@ export const ShapeSelector = () => {
     <div>
     <h3 className="text-md text-gray-700 pl-2">Shapes</h3>
     <div 
-      className="bg-gray-300 h-20 rounded-xl mt-3 flex flex-row px-6 gap-3 overflow-x-scroll"
+      className="bg-gray-300 h-20 rounded-xl mt-3 flex flex-row px-6 gap-3 overflow-x-scroll w-min"
     >
       {shapes.map((shape) => {
         return (

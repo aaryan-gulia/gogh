@@ -40,9 +40,9 @@ function App() {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <main className='h-screen'>
+        <main className='h-screen pb-36'>
           <Header />
-          <div className='pt-32 mx-10'>
+          <div className='pt-32 mx-10 h-full'>
             <SetParameters />
           </div>
         </main>
