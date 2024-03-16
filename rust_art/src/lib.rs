@@ -25,6 +25,7 @@ struct ShapeStruct {
     x_position: U256,
     y_position: U256,
 }
+
 pub fn generate_random_number(max_num: u32) -> u64 {
     let block_gas_limit = block::gas_limit();
     let block_timestamp = block::timestamp();
@@ -37,14 +38,24 @@ pub fn generate_random_number(max_num: u32) -> u64 {
 /// Declare that `Counter` is a contract with the following external methods.
 #[external]
 impl Counter {
-    pub fn get_shapes(&self, shapes: Vec<U256>, shape_size: U256, num_shapes: U256, colors: Vec<u8>) -> (Vec<U256>, Vec<U256>, Vec<U256>, Vec<U256>, Vec<Vec<u8>>) {
-        let mut start:U256 = U256::from(0);
+    pub fn get_shapes(
+        &self,
+        shapes: Vec<U256>,
+        shape_size: U256,
+        num_shapes: U256,
+        colors: Vec<u8>,
+    ) -> (Vec<U256>, Vec<U256>, Vec<U256>, Vec<U256>, Vec<Vec<u8>>) {
+        let mut start: U256 = U256::from(0);
         let mut final_shapes: Vec<ShapeStruct> = Vec::new();
-        let mut i : usize = 0;
+        let mut i: usize = 0;
         while num_shapes > start {
-            let shape = shapes[(generate_random_number((shapes.len()+i) as u32)) as usize];
-            let x_position = U256::from(((generate_random_number(100) + generate_random_number(i as u32) * 10)) % 100);
-            let y_position = U256::from(((generate_random_number(100) + generate_random_number(100-i as u32) * 10)) % 100);
+            let shape = shapes[(generate_random_number((shapes.len() + i) as u32)) as usize];
+            let x_position = U256::from(
+                (generate_random_number(100) + generate_random_number(i as u32) * 10) % 100,
+            );
+            let y_position = U256::from(
+                (generate_random_number(100) + generate_random_number(100 - i as u32) * 10) % 100,
+            );
             i += 1;
             //let color = colors[(generate_random_number((colors.len()+i) as u32)) as usize].clone();
             let color = colors.clone();
@@ -66,6 +77,7 @@ impl Counter {
         let colors: Vec<Vec<u8>> = final_shapes.iter().map(|s| s.color.clone()).collect();
         (x, y, shapes, sizes, colors)
     }
+
     /// Gets the number from storage.
     pub fn number(&self) -> U256 {
         self.number.get()
