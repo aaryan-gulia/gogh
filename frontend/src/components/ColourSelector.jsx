@@ -14,7 +14,7 @@ export const ColourSelector = () => {
 
   const handleAddColour = () => {
     setColours((prev) => {
-      return [...prev, "FFFFFF"];
+      return [...prev, "000000"];
     });
   }
 
