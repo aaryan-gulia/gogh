@@ -22,7 +22,7 @@ export const ColourSelector = ({ colours, colourCallback, addColour }) => {
   }
 
   const colourList = colours.map((colour, idx) => {
-    return <ColourButton idx={idx} colour={colour} editCallback={handleColourEdit} deleteCallback={handleDeleteColour} />
+    return <ColourButton key={idx} idx={idx} colour={colour} editCallback={handleColourEdit} deleteCallback={handleDeleteColour} />
   });
 
   return (

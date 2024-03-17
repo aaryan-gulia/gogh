@@ -1,0 +1,125 @@
+[
+  {
+    "name": "initialize",
+    "inputs": [
+      {
+        "name": "art_contract_address",
+        "type": "address"
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "name": "mint",
+    "inputs": [
+      {
+        "name": "shapes_mask",
+        "type": "uint256"
+      },
+      {
+        "name": "num_shapes",
+        "type": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "name": "mint_to",
+    "inputs": [
+      {
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "name": "shapes_mask",
+        "type": "uint256"
+      },
+      {
+        "name": "num_shapes",
+        "type": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "name": "safe_mint",
+    "inputs": [
+      {
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "name": "shapes_mask",
+        "type": "uint256"
+      },
+      {
+        "name": "num_shapes",
+        "type": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "name": "safe_mint_with_data",
+    "inputs": [
+      {
+        "name": "data",
+        "type": "bytes"
+      },
+      {
+        "name": "shapes_mask",
+        "type": "uint256"
+      },
+      {
+        "name": "num_shapes",
+        "type": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "name": "burn",
+    "inputs": [
+      {
+        "name": "token_id",
+        "type": "uint256"
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "name": "get_svg",
+    "inputs": [
+      {
+        "name": "token_id",
+        "type": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ]
+  }
+]

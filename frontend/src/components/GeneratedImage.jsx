@@ -1,7 +1,7 @@
 import externalLink from '/icons/externalLink.svg';
 import { MintButton } from './MintButton';
 
-const contractAddress = "0x0EdE555D3f8c3197741A757F9696C7059122D1fc";
+const contractAddress = "0x66a7b847ebE82D1bd7bd6F4968A46505b0C304C6";
 const shortContractAddress = contractAddress.substring(0, 5) + '...' + contractAddress.substring(contractAddress.length - 5);
 
 const getContext = () => {
@@ -9,7 +9,7 @@ const getContext = () => {
   return canvas.getContext('2d');
 }
 
-export const GeneratedImage = ({selectedAlgorithm, shapes, colours}) => {
+export const GeneratedImage = ({modalCallback, selectedAlgorithm, shapes, colours}) => {
   const drawRectangle = (x, y, width, height, colour) => {  
     let ctx = getContext();
     ctx.fillStyle = colour;
@@ -47,13 +47,13 @@ export const GeneratedImage = ({selectedAlgorithm, shapes, colours}) => {
         <a
         target="_blank" rel="noopener noreferrer"
         className='hover:text-gray-600 border-b-[1px] border-b-black flex flex-row gap-1'
-        href='https://stylus-testnet-explorer.arbitrum.io/address/0x0EdE555D3f8c3197741A757F9696C7059122D1fc'
+        href='https://stylus-testnet-explorer.arbitrum.io/token/0x66a7b847ebE82D1bd7bd6F4968A46505b0C304C6'
         >
         <img className="inline" src={externalLink} width={12}></img>
         <span>{shortContractAddress}</span>
         </a>
       </div>
-      <MintButton algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
+      <MintButton modalCallback={modalCallback} algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </div>
   );
 }
