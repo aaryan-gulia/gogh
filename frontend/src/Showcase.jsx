@@ -1,10 +1,7 @@
 import { useState } from "react";
 import searchIcon from "/icons/search.svg";
 import { useWriteContract } from 'wagmi';
-import { useReadContract } from "wagmi";
-import example from "/example.jpeg";
-import cAbi from "./IGoghArt.json"
-import { writeContract } from 'viem/actions';
+import { NftShow } from "./components/NFTShow";
 
 const nfts = [
 {
@@ -61,7 +58,7 @@ const nftDisplay = (nft) => {
 }
 
 export const Showcase = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(0);
   const { data: hash, writeContract } = useWriteContract();
 
   const nftList = nfts.map((nft) => { return nftDisplay(nft); });
@@ -79,10 +76,15 @@ export const Showcase = () => {
         <input 
         className="w-full outline-none text-lg"
         onChange={handleSearchChange}
-        type="text" value={search} placeholder="search address ..."
+        onKeyDown={(e) => {
+          if (e.key === "Enter")
+              onEnter();
+          }}
+        type="text" value={search} placeholder="enter token id ..."
         >
         </input>
       </div>
+      <NftShow search={search} />
       <div>
       <h2 className="text-xl underline font-semibold pb-10">GOGH NFTs</h2>
       <div className="flex flex-row flex-wrap gap-10">
