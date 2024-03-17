@@ -1,6 +1,7 @@
-import { useWriteContract } from 'wagmi';
-import { writeContract } from 'viem/actions';
-import abi from "../../abis/IGoghArt.json";
+import { useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
+import { readContract } from '@wagmi/core';
+import {config} from "../../config.js";
+import cAbi from "../IGoghArt.json";
 import { useEffect } from 'react';
 //import initSync, { get_shapes_on_web } from '../../public/pkg/gogh_art';
 
@@ -27,50 +28,32 @@ function shapesToU256(shapes) {
   return binaryRepresentation;
 }
 
-export const MintButton = ({algorithm, shapes, colours}) => {
-  const { data: hash, writeContract } = useWriteContract()
+export const MintButton = ({transactionCallback, algorithm, shapes, colours}) => {
+  const { data: hash, error, isPending, writeContract } = useWriteContract()
   const shapeBits = shapesToU256(shapes);
-  const numShapes = BigInt(10);
+  const numShapes = BigInt(30);
 
   const handleGenerate = async () => {
     writeContract({
-      address: '0x0EdE555D3f8c3197741A757F9696C7059122D1fc',
-      abi,
-      functionName: 'getShapes',
+      address: '0x66a7b847ebE82D1bd7bd6F4968A46505b0C304C6',
+      abi: cAbi.abi,
+      functionName: 'mint',
       args: [shapeBits, numShapes]
-    });
+    })
   }
 
-  /*
-  const runWasm = async () => {
-    console.log("================")
-      let wasm = await initSync().then((val) => console.log(error, "09wutg98ehsogh"));
-      console.log("sihfoihoigvfl", wasm) // Initialize the WebAssembly module
-      const shapes = get_shapes_on_web(0b001, 5); // Example usage of a WebAssembly function
-      console.log("weee")
-      console.log(shapes);
+  const result = useWaitForTransactionReceipt({        
+    hash: hash
+  })
+
+  if (result.data) {
+    transactionCallback(result.data.transactionHash);
   }
-  
-  useEffect(() => {
-    // Define the async function
-    const fetchWasmData = async () => {
-      try {
-        const data = await runWasm();
-        // Do something with the data
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    // Call the async function
-    fetchWasmData();
-  }, []);
-
-  */
 
   return (
     <button 
     className='mt-8 border border-emerald-600 bg-gradient-to-br w-26 from-teal-400 to-emerald-500 hover:from-teal-500 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
+    onClick={handleGenerate}
     >
     Mint
     </button>

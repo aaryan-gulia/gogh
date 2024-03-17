@@ -34,6 +34,7 @@ const stylusTestnet = {
 }
 
 const chains = [stylusTestnet]
+
 const config = defaultWagmiConfig({
   chains,
   projectId,
