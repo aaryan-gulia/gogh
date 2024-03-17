@@ -72,7 +72,7 @@ pub fn gen(shapes_mask: U256, num_shapes: U256) -> String {
             },
         };
 
-        doc = add_layer(doc, layer);
+        doc = layer.add_to(doc);
         count += U256::from(1);
     }
 
