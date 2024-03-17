@@ -7,6 +7,7 @@ static ALLOC: mini_alloc::MiniAlloc = mini_alloc::MiniAlloc::INIT;
 use stylus_sdk::alloy_primitives::U256;
 use stylus_sdk::prelude::*;
 
+pub mod circled;
 pub mod gen;
 pub mod svg;
 
