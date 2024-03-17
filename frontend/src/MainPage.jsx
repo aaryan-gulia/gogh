@@ -7,7 +7,8 @@ export const MainPage = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState(1);
   const [shapes, setShapes] = useState(["square"]);
   const [colours, setColours] = useState(["#FFFFFF"]);
-  const [modal, setModal] = useState(true);
+  const [numShapes, setNumShapes] = useState(1);
+  const [modal, setModal] = useState(false);
 
   const modalEl = () => {
     if (modal) return <NFTModal doneCallback={() => {setModal(false)}} />;
@@ -23,7 +24,7 @@ export const MainPage = () => {
     </div>
     <div className='flex flex-row gap-20 hs-full pt-20'>
       <div className='h-full grow flex flex-col gap-8'>
-        <SetParameters selectedAlgorithm={selectedAlgorithm} setSelectedAlgorithm={setSelectedAlgorithm} shapes={shapes} setShapes={setShapes} colours={colours} setColours={setColours} />
+        <SetParameters selectedAlgorithm={selectedAlgorithm} setSelectedAlgorithm={setSelectedAlgorithm} shapes={shapes} setShapes={setShapes} colours={colours} setColours={setColours} numShapes={numShapes} setNumShapes={setNumShapes} />
       </div>
       <GeneratedImage selectedAlgorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </div>
