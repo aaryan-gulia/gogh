@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ShapeSelector } from "./ShapeSelector";
 import { ColourSelector } from './ColourSelector';
-import { GenerateButton } from './GenerateButton';
 import histogram from "/icons/histogram.svg";
 
 const algorithms = [
@@ -18,11 +17,7 @@ const algorithms = [
 const selected = "bg-gray-500 px-5 py-1 text-sm rounded-full text-white border border-black";
 const unSelected = "bg-gray-300 hover:bg-gray-200  px-5 py-1 text-sm rounded-full text-black";
 
-export const SetParameters = () => {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState(1);
-  const [shapes, setShapes] = useState(["square"]);
-  const [colours, setColours] = useState(["#FFFFFF"]);
-
+export const SetParameters = ({selectedAlgorithm, setSelectedAlgorithm, shapes, setShapes, colours, setColours, numShapes, setNumShapes}) => {
   const algorithmButtons = algorithms.map((algorithm) => {
     return (
       <button
@@ -65,6 +60,10 @@ export const SetParameters = () => {
     });
   }
 
+  const handleNumShapesChange = (e) => {
+    setNumShapes(e.target.value);
+  }
+
   return (
     <>
       <div className="flex flex-col gap-6 h-full">
@@ -74,11 +73,13 @@ export const SetParameters = () => {
       </div>
       <div className="bg-gray-100 min-h-[30rem] w-full p-8 rounded-2xl flex flex-col gap-10 h-full border border-gray-300">
         <ShapeSelector selectedShapes={shapes} shapeCallback={handleShapeChange} />
+        <div className="flex flex-col gap-2">
+          <h2>Number of Shapes: <span className="text-slate-500">{numShapes}</span></h2>
+          <input type="range" id="numberSlider" name="numberSlider" min="1" max="64" value={numShapes} onChange={handleNumShapesChange} />
+        </div>
         <ColourSelector colours={colours} colourCallback={handleColoursChange} addColour={handleAddColour} />
       </div>
     </div>
-    <br></br>
-    <GenerateButton algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </>
   );
 }
