@@ -17,7 +17,8 @@
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "viem": "^2.8.9",
-    "wagmi": "^2.5.7"
+    "wagmi": "^2.5.7",
+    "gogh_art": "file:/pkg"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",

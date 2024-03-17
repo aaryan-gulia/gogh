@@ -2,7 +2,7 @@ import { useWriteContract } from 'wagmi';
 import { writeContract } from 'viem/actions';
 import abi from "../../abis/IGoghArt.json";
 import { useEffect } from 'react';
-import initSync, { get_shapes_on_web } from '../../public/pkg/gogh_art';
+//import initSync, { get_shapes_on_web } from '../../public/pkg/gogh_art';
 
 // Define shapes with binary representation as BigInt
 const rectangle = BigInt(0b001);
@@ -41,6 +41,7 @@ export const MintButton = ({algorithm, shapes, colours}) => {
     });
   }
 
+  /*
   const runWasm = async () => {
     console.log("================")
       let wasm = await initSync().then((val) => console.log(error, "09wutg98ehsogh"));
@@ -65,10 +66,11 @@ export const MintButton = ({algorithm, shapes, colours}) => {
     fetchWasmData();
   }, []);
 
+  */
+
   return (
     <button 
     className='mt-8 border border-emerald-600 bg-gradient-to-br w-26 from-teal-400 to-emerald-500 hover:from-teal-500 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
-    onClick={runWasm}
     >
     Mint
     </button>
