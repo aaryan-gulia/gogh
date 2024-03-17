@@ -85,6 +85,16 @@ type Result<T, E = GoghNFTError> = core::result::Result<T, E>;
 #[external]
 #[inherit(Erc721<GoghNFTParams>)]
 impl GoghNFT {
+    pub fn initialize(&mut self, art_contract_address: Address) -> Result<()> {
+        let current_art_contract = self.art_contract_address.get();
+        if !current_art_contract.is_zero() {
+            return Err(GoghNFTError::AlreadyInitialized(AlreadyInitialized {}));
+        }
+        self.art_contract_address.set(art_contract_address);
+
+        Ok(())
+    }
+
     /// Mints an NFT, but does not call onErc712Received
     pub fn mint(&mut self, shapes_mask: U256, num_shapes: U256) -> Result<String> {
         let minter = msg::sender();
