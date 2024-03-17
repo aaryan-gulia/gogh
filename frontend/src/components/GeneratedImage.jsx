@@ -52,7 +52,7 @@ export const GeneratedImage = () => {
         </a>
       </div>
       <button 
-      className='mt-8 bg-gradient-to-br w-24 from-teal-400 to-emerald-500 hover:from-teal-400 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
+      className='mt-8 border border-emerald-600 bg-gradient-to-br w-26 from-teal-400 to-emerald-500 hover:from-teal-500 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
       >
       Mint
       </button>

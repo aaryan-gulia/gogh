@@ -1,5 +1,8 @@
 import { useState } from "react";
-import searchIcon from "/icons/search.svg"
+import searchIcon from "/icons/search.svg";
+import { useWriteContract } from 'wagmi';
+import { writeContract } from 'viem/actions';
+import abi from "../abis/IGoghArt.json";
 
 const nfts = [{
   name: "Nft1",
@@ -18,7 +21,7 @@ const nfts = [{
 const nftDisplay = (nft) => {
   return (
     <div key={nft.tokenId} 
-    className="p-8 bg-gray-100 hover:shadow-inner rounded-lg w-fit flex flex-col gap-5"
+    className="p-8 border border-slate-500 border-dashed hover:shadow-inner rounded-lg w-fit flex flex-col gap-5"
     >
       <h3 className="font-medium">{nft.name}</h3>
       <div className="w-56 h-56 border border-black mx-auto">{nft.image}</div>
@@ -32,6 +35,7 @@ const nftDisplay = (nft) => {
 
 export const Showcase = () => {
   const [search, setSearch] = useState("");
+  const { data: hash, writeContract } = useWriteContract();
 
   const nftList = nfts.map((nft) => { return nftDisplay(nft); });
 
@@ -52,8 +56,11 @@ export const Showcase = () => {
         >
         </input>
       </div>
+      <div>
+      <h2 className="text-xl underline font-semibold pb-10">Your NFTs</h2>
       <div className="flex flex-row flex-wrap gap-10">
         {nftList}
+      </div>
       </div>
     </main>
   );
