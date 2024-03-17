@@ -1,4 +1,5 @@
 import externalLink from '/icons/externalLink.svg';
+import { MintButton } from './MintButton';
 
 const contractAddress = "0x0EdE555D3f8c3197741A757F9696C7059122D1fc";
 const shortContractAddress = contractAddress.substring(0, 5) + '...' + contractAddress.substring(contractAddress.length - 5);
@@ -8,7 +9,7 @@ const getContext = () => {
   return canvas.getContext('2d');
 }
 
-export const GeneratedImage = () => {
+export const GeneratedImage = ({selectedAlgorithm, shapes, colours}) => {
   const drawRectangle = (x, y, width, height, colour) => {  
     let ctx = getContext();
     ctx.fillStyle = colour;
@@ -51,11 +52,7 @@ export const GeneratedImage = () => {
         <span>{shortContractAddress}</span>
         </a>
       </div>
-      <button 
-      className='mt-8 border border-emerald-600 bg-gradient-to-br w-26 from-teal-400 to-emerald-500 hover:from-teal-500 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
-      >
-      Mint
-      </button>
+      <MintButton algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </div>
   );
 }

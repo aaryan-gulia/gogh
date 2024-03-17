@@ -27,7 +27,7 @@ function shapesToU256(shapes) {
 }
 
 
-export const GenerateButton = ({algorithm, numShapes, shapes, colours}) => {
+export const MintButton = ({algorithm, numShapes, shapes, colours}) => {
   const { data: hash, writeContract } = useWriteContract()
   const shapeBits = shapesToU256(shapes);
 
@@ -42,10 +42,9 @@ export const GenerateButton = ({algorithm, numShapes, shapes, colours}) => {
 
   return (
     <button 
-    className='w-fit border bg-gradient-to-br from-fuchsia-700 to-purple-900 text-white border-black hover:from-fuchsia-800 hover:to-purple-950 rounded-full px-6 py-2 h-12' 
-    onClick={handleGenerate}
+    className='mt-8 border border-emerald-600 bg-gradient-to-br w-26 from-teal-400 to-emerald-500 hover:from-teal-500 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
     >
-      🪄 Generate
+    Mint
     </button>
   );
 }

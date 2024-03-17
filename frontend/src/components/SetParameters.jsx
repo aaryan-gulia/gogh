@@ -18,11 +18,7 @@ const algorithms = [
 const selected = "bg-gray-500 px-5 py-1 text-sm rounded-full text-white border border-black";
 const unSelected = "bg-gray-300 hover:bg-gray-200  px-5 py-1 text-sm rounded-full text-black";
 
-export const SetParameters = () => {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState(1);
-  const [shapes, setShapes] = useState(["square"]);
-  const [colours, setColours] = useState(["#FFFFFF"]);
-
+export const SetParameters = ({selectedAlgorithm, setSelectedAlgorithm, shapes, setShapes, colours, setColours}) => {
   const algorithmButtons = algorithms.map((algorithm) => {
     return (
       <button
@@ -77,8 +73,6 @@ export const SetParameters = () => {
         <ColourSelector colours={colours} colourCallback={handleColoursChange} addColour={handleAddColour} />
       </div>
     </div>
-    <br></br>
-    <GenerateButton algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </>
   );
 }

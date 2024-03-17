@@ -1,8 +1,12 @@
-import GenImage from "/alg-art.jpg";
+import { useState } from "react";
 import { SetParameters } from "./components/SetParameters";
 import { GeneratedImage } from "./components/GeneratedImage";
 
 export const MainPage = () => {
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState(1);
+  const [shapes, setShapes] = useState(["square"]);
+  const [colours, setColours] = useState(["#FFFFFF"]);
+
   return (
     <main className='h-full pb-36 px-10'>
     <div className='pt-40 h-full mx-auto max-w-[1000px]'>
@@ -12,9 +16,9 @@ export const MainPage = () => {
     </div>
     <div className='flex flex-row gap-20 h-full pt-20'>
       <div className='h-full grow flex flex-col gap-8'>
-        <SetParameters />
+        <SetParameters selectedAlgorithm={selectedAlgorithm} setSelectedAlgorithm={setSelectedAlgorithm} shapes={shapes} setShapes={setShapes} colours={colours} setColours={setColours} />
       </div>
-      <GeneratedImage />
+      <GeneratedImage selectedAlgorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </div>
     </div>
   </main>
