@@ -13,20 +13,19 @@ pub mod svg;
 sol_storage! {
     #[entrypoint]
     pub struct GoghArt {
-        uint256 tokens;
         mapping(uint256 => string) svgs;
     }
 }
 
 #[external]
 impl GoghArt {
-    pub fn initialize(&mut self, shapes_mask: U256, num_shapes: U256) {
-        let token_id = self.tokens.get() + U256::from(1);
-        self.tokens.set(token_id);
-
+    pub fn gen_svg(&mut self, token_id: U256, shapes_mask: U256, num_shapes: U256) -> String {
         let svg = gen::gen(shapes_mask, num_shapes);
+
         let mut token_svg = self.svgs.setter(token_id);
-        token_svg.set_str(svg);
+        token_svg.set_str(svg.clone());
+
+        svg
     }
 
     pub fn get_svg(&self, token_id: U256) -> String {
