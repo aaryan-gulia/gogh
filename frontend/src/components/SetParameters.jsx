@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ShapeSelector } from "./ShapeSelector";
 import { ColourSelector } from './ColourSelector';
-import { GenerateButton } from './GenerateButton';
 import histogram from "/icons/histogram.svg";
 
 const algorithms = [
