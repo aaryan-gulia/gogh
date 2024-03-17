@@ -9,31 +9,7 @@ const getContext = () => {
   return canvas.getContext('2d');
 }
 
-export const GeneratedImage = ({modalCallback, selectedAlgorithm, shapes, colours}) => {
-  const drawRectangle = (x, y, width, height, colour) => {  
-    let ctx = getContext();
-    ctx.fillStyle = colour;
-    ctx.fillRect(x, y, width, height);
-  }
- 
-  const drawCircle = (x, y, radius, colour) => {
-    let ctx = getContext();
-    ctx.fillStyle = colour;
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2, true);
-    ctx.fill();
-  }
-
-  const drawTriangle = (x1, y1, x2, y2, x3, y3, colour) => {
-    let ctx = getContext();
-    ctx.fillStyle = colour;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1); // first vertex
-    ctx.lineTo(x2, y2); // second vertex
-    ctx.lineTo(x3, y3); // third vertex
-    ctx.closePath(); // closes the path and goes back to the first vertex
-    ctx.fill();
-}
+export const GeneratedImage = ({transactionCallback, selectedAlgorithm, shapes, colours}) => {
 
   return (
     <div className="flex flex-col gap-4">
@@ -53,7 +29,7 @@ export const GeneratedImage = ({modalCallback, selectedAlgorithm, shapes, colour
         <span>{shortContractAddress}</span>
         </a>
       </div>
-      <MintButton modalCallback={modalCallback} algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
+      <MintButton transactionCallback={transactionCallback} algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </div>
   );
 }

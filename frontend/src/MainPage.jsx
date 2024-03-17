@@ -9,11 +9,14 @@ export const MainPage = () => {
   const [colours, setColours] = useState(["#FFFFFF"]);
   const [numShapes, setNumShapes] = useState(1);
   const [modal, setModal] = useState(false);
+  const [transactionHash, setTransactionHash] = useState("");
 
-  const modalEl = modal ? <NFTModal doneCallback={() => {setModal(false)}} /> : <></>
+  const modalEl = modal ? <NFTModal transactionHash={transactionHash} doneCallback={() => {setModal(false)}} /> : <></>
 
-  const modalCallback = () => {
+  const transactionCallback = (hash) => {
+    if (hash == transactionHash) return;
     setTimeout(() => {
+      setTransactionHash(hash);
       setModal(true);
     }, 2000);
   }
@@ -29,7 +32,7 @@ export const MainPage = () => {
       <div className='h-full grow flex flex-col gap-8'>
         <SetParameters selectedAlgorithm={selectedAlgorithm} setSelectedAlgorithm={setSelectedAlgorithm} shapes={shapes} setShapes={setShapes} colours={colours} setColours={setColours} numShapes={numShapes} setNumShapes={setNumShapes} />
       </div>
-      <GeneratedImage modalCallback={modalCallback} selectedAlgorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
+      <GeneratedImage transactionCallback={transactionCallback} selectedAlgorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
     </div>
       {modalEl}
     </div>

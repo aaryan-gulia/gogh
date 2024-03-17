@@ -1,11 +1,9 @@
-import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
 import { readContract } from '@wagmi/core';
 import {config} from "../../config.js";
-import abi from "../abi.json";
+import cAbi from "../IGoghArt.json";
 import { useEffect } from 'react';
 //import initSync, { get_shapes_on_web } from '../../public/pkg/gogh_art';
-
-const contractAbi = abi;
 
 // Define shapes with binary representation as BigInt
 const rectangle = BigInt(0b001);
@@ -30,38 +28,32 @@ function shapesToU256(shapes) {
   return binaryRepresentation;
 }
 
-const contractAddress = '0x66a7b847ebE82D1bd7bd6F4968A46505b0C304C6'
-
-export const MintButton = ({modalCallback, algorithm, shapes, colours}) => {
-  const { data: hash, writeContract } = useWriteContract()
+export const MintButton = ({transactionCallback, algorithm, shapes, colours}) => {
+  const { data: hash, error, isPending, writeContract } = useWriteContract()
   const shapeBits = shapesToU256(shapes);
-  const numShapes = BigInt(10);
-
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
-    hash: hash,
-    onSuccess(data) {
-      console.log('Success', data)
-    },
-  })
+  const numShapes = BigInt(30);
 
   const handleGenerate = async () => {
-    try {
-      const result = await readContract(config, {
-        contractInterface: contractAbi,
-        address: contractAddress,
-        functionName: 'ownerOf',
-        args: [1]
-      })
-      console.log(result);
-    } catch (error) {
-      console.error(error)
-    }
+    writeContract({
+      address: '0x66a7b847ebE82D1bd7bd6F4968A46505b0C304C6',
+      abi: cAbi.abi,
+      functionName: 'mint',
+      args: [shapeBits, numShapes]
+    })
+  }
+
+  const result = useWaitForTransactionReceipt({        
+    hash: hash
+  })
+
+  if (result.data) {
+    transactionCallback(result.data.transactionHash);
   }
 
   return (
     <button 
     className='mt-8 border border-emerald-600 bg-gradient-to-br w-26 from-teal-400 to-emerald-500 hover:from-teal-500 hover:to-emerald-600 rounded-full text-white px-6 py-2' 
-    onClick={modalCallback}
+    onClick={handleGenerate}
     >
     Mint
     </button>
