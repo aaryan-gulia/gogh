@@ -4,7 +4,11 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],  theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'gen-art': "url('../public/alg-art.jpg')",
+      }
+    },
   },
   plugins: [],
 }

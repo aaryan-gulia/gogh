@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { ShapeSelector } from "./ShapeSelector";
 import { ColourSelector } from './ColourSelector';
-import { GenerateButton } from './GenerateButton'
+import { GenerateButton } from './GenerateButton';
+import histogram from "/icons/histogram.svg";
 
 const algorithms = [
   {
@@ -67,10 +68,11 @@ export const SetParameters = () => {
   return (
     <>
       <div className="flex flex-col gap-6 h-full">
+      <div className="flex flex-row mb-6 border-b-[1px] border-gray-700"><img src={histogram} width={20}></img><h2 className="text-2xl w-full pl-2">Parameter Selection</h2></div>
       <div className="flex flex-row gap-5">
         {algorithmButtons}
       </div>
-      <div className="bg-gray-100 w-full p-8 rounded-2xl flex flex-col gap-10 h-full border border-gray-300">
+      <div className="bg-gray-100 min-h-[30rem] w-full p-8 rounded-2xl flex flex-col gap-10 h-full border border-gray-300">
         <ShapeSelector selectedShapes={shapes} shapeCallback={handleShapeChange} />
         <ColourSelector colours={colours} colourCallback={handleColoursChange} addColour={handleAddColour} />
       </div>
