@@ -27,14 +27,14 @@ function shapesToU256(shapes) {
 export const MintButton = ({transactionCallback, algorithm, shapes, colours, numShapes}) => {
   const { data: hash, error, isPending, writeContract } = useWriteContract()
   const shapeBits = shapesToU256(shapes);
-  const numShapes = BigInt(numShapes);
+  const nShapes = BigInt(numShapes);
 
   const handleGenerate = async () => {
     writeContract({
       address: '0x66a7b847ebE82D1bd7bd6F4968A46505b0C304C6',
       abi: cAbi.abi,
       functionName: 'mint',
-      args: [shapeBits, numShapes]
+      args: [shapeBits, nShapes]
     })
   }
 
