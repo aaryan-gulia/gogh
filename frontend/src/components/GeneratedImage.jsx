@@ -9,7 +9,7 @@ const getContext = () => {
   return canvas.getContext('2d');
 }
 
-export const GeneratedImage = ({transactionCallback, selectedAlgorithm, shapes, colours}) => {
+export const GeneratedImage = ({transactionCallback, selectedAlgorithm, shapes, colours, numShapes}) => {
 
   return (
     <div className="flex flex-col gap-4">
@@ -29,7 +29,7 @@ export const GeneratedImage = ({transactionCallback, selectedAlgorithm, shapes, 
         <span>{shortContractAddress}</span>
         </a>
       </div>
-      <MintButton transactionCallback={transactionCallback} algorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
+      <MintButton transactionCallback={transactionCallback} algorithm={selectedAlgorithm} shapes={shapes} colours={colours} numShapes={numShapes} />
     </div>
   );
 }

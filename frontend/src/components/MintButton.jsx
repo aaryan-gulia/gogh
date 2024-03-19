@@ -1,9 +1,5 @@
-import { useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
-import { readContract } from '@wagmi/core';
-import {config} from "../../config.js";
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import cAbi from "../IGoghArt.json";
-import { useEffect } from 'react';
-//import initSync, { get_shapes_on_web } from '../../public/pkg/gogh_art';
 
 // Define shapes with binary representation as BigInt
 const rectangle = BigInt(0b001);
@@ -28,10 +24,10 @@ function shapesToU256(shapes) {
   return binaryRepresentation;
 }
 
-export const MintButton = ({transactionCallback, algorithm, shapes, colours}) => {
+export const MintButton = ({transactionCallback, algorithm, shapes, colours, numShapes}) => {
   const { data: hash, error, isPending, writeContract } = useWriteContract()
   const shapeBits = shapesToU256(shapes);
-  const numShapes = BigInt(30);
+  const numShapes = BigInt(numShapes);
 
   const handleGenerate = async () => {
     writeContract({
