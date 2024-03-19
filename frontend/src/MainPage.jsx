@@ -32,7 +32,7 @@ export const MainPage = () => {
       <div className='h-full grow flex flex-col gap-8'>
         <SetParameters selectedAlgorithm={selectedAlgorithm} setSelectedAlgorithm={setSelectedAlgorithm} shapes={shapes} setShapes={setShapes} colours={colours} setColours={setColours} numShapes={numShapes} setNumShapes={setNumShapes} />
       </div>
-      <GeneratedImage transactionCallback={transactionCallback} selectedAlgorithm={selectedAlgorithm} shapes={shapes} colours={colours} />
+      <GeneratedImage transactionCallback={transactionCallback} selectedAlgorithm={selectedAlgorithm} shapes={shapes} colours={colours} numShapes={numShapes} />
     </div>
       {modalEl}
     </div>
